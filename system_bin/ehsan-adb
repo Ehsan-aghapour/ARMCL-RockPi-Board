@@ -1,0 +1,8 @@
+#!/system/bin/sh
+
+echo slaam
+#su
+date >> /data/data/com.termux/files/home/t.txt
+setprop service.adb.tcp.port 5555
+stop adbd
+start adbd

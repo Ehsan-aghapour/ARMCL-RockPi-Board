@@ -1,0 +1,12 @@
+#method 1:
+#ln -s /data/data/com.termux/files/home arm
+
+#method 2:
+cd /data/data/com.termux/files/home
+$SHELL
+#instead of $SHELL my be require exec bash
+
+#method 3:
+#function arm(){
+#	cd /data/data/com.termux/files/home
+#}

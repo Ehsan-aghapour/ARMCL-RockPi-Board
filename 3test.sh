@@ -63,8 +63,8 @@ chmod +x $1
 p="/data/local/W/ARMCL-RockPi"
 p="/data/data/com.termux/files/home/ARMCL-RockPi"
 
-export LD_LIBRARY_PATH="$p/lib/"
-export LD_LIBRARY_PATH="/vendor/lib64/"
+#export LD_LIBRARY_PATH="$p/lib/"
+#export LD_LIBRARY_PATH="/vendor/lib64/"
 #p=".."
 
 #_dt="$p/compute_library_alexnet/"
@@ -136,16 +136,26 @@ if [ "$6" ]; then
     n="--n=$6"
 fi
 
+GPU_h=""
+NPU_h=""
+if [ "${15}" ]; then
+    GPU_h="--GPU_host=${15}";
+fi
+
+if [ "${16}" ]; then
+    NPU_h="--NPU_host=${16}";
+fi
+
 #echo $img
 #echo $dt
 #echo $lbl
 
 #gdbserver :539 
-echo "$1 --threads=2  --threads2=4  --target=$2 $dt $img $lbl $n --save=$7 --annotate=$8 --partition_point=$9 --partition_point2=${10} --order=${11} --layer_time=${12} ${13} ${14} ${15} ${16} ${17}"
+echo "$1  --target=$2 $dt $img $lbl $n --save=$7 --annotate=$8 --partition_point=$9 --partition_point2=${10} --order=${11} --layer_time=${12} --threads=${13}  --threads2=${14} ${GPU_h} ${NPU_h} ${17}"
 
 #./graph_alexnet_n_pipe --target=NEON --image=/data/data/com.termux/files/home/ARMCL-Khadas/Large/Alex_extracted/images/ --data=/data/data/com.termux/files/home/ARMCL-Khadas/Large/Alex_extracted/ --labels=/data/data/com.termux/files/home/ARMCL-Khadas/Large/Alex_extracted/labels.txt --n=4 --partition_point=8 --partition_point2=8 --order=B-L-G
 
 
 
 
-$1 --threads=2  --threads2=4  --target=$2 $dt $img $lbl $n --save=$7 --annotate=$8 --partition_point=$9 --partition_point2=${10} --order=${11} --layer_time=${12} ${13} ${14} ${15} ${16} ${17} 
+$1 --target=$2 $dt $img $lbl $n --save=$7 --annotate=$8 --partition_point=$9 --partition_point2=${10} --order=${11} --layer_time=${12} --threads=${13} --threads2=${14} $GPU_h $NPU_h ${17} 
